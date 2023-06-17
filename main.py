@@ -2,8 +2,33 @@ from tkinter import *
 import tkinter.ttk as ttk
 import sqlite3
 
+db_conn = sqlite3.connect("task.db")
+c = db_conn.cursor()
+# c.execute("""CREATE TABLE task_user(
+#             task text,
+#             date text
+#
+#
+# )""")
+db_conn.commit()
+
+
+# db_conn.close()
+
+
 def add_task():
-    
+    b_conn = sqlite3.connect("task.db")
+    C = db_conn.cursor()
+    C.execute("INSERT INTO task_user VALUES (:task_entry,:date_entry)",
+              {
+                  "task_entry": task_entry.get(),
+                  "date_entry": date_entry.get(),
+              }
+              )
+    db_conn.commit()
+    db_conn.close()
+    task_entry.delete(0, END)
+    date_entry.delete(0, END)
 
 
 window = Tk()
@@ -17,7 +42,7 @@ task_entry = Entry(window)
 task_entry.grid(row=0, column=1)
 date_entry = Entry(window)
 date_entry.grid(row=1, column=1)
-add_btn = Button(window, text="   Add Task   ", command=addtask)
+add_btn = Button(window, text="   Add Task   ", command=add_task)
 add_btn.grid(row=2, column=1, padx=5, pady=5)
 del_btn = Button(window, text=" Delete Task ")
 del_btn.grid(row=3, column=1, padx=5, pady=5)
