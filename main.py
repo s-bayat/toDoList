@@ -32,6 +32,8 @@ def add_task():
 def query():
     db_conn = sqlite3.connect("task.db")
     c = db_conn.cursor()
+    c.execute("SELECT *, oid FROM task_user")
+    records = c.fetchall()
     table = ttk.Treeview(window)
     table.grid(row=5, column=0, columnspan=2, pady=2, padx=10)
     table["columns"] = ("column 2", "column 3")
@@ -42,6 +44,10 @@ def query():
     table.heading("#0", text="ID", anchor=W)
     table.heading("column 2", text="Task", anchor=W)
     table.heading("column 3", text="Date", anchor=W)
+    i = 0
+    for record in records:
+        row = table.insert("", i, text=record[2], values=(record[0], record[1]))
+        i = i + 1
     db_conn.commit()
     db_conn.close()
 
