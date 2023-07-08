@@ -29,6 +29,11 @@ def add_task():
     date_entry.delete(0, END)
     query()
 
+
+def exit():
+    window.destroy()
+
+
 # def delete_record():
 #     db_conn = sqlite3.connect("task.db")
 #     c = db_conn.cursor()
@@ -83,5 +88,7 @@ add_btn = Button(window, text="   Add Task   ", command=add_task, bg="green")
 add_btn.grid(row=2, column=1, padx=5, pady=5)
 show_btn = Button(window, text=" Show Tasks ", command=query)
 show_btn.grid(row=3, column=1, padx=5, pady=5)
+ext_btn = Button(window, text="Exit", command=exit)
+ext_btn.grid(row=7, column=0, columnspan=2, ipadx=15)
 
 window.mainloop()
