@@ -45,7 +45,7 @@ def exit():
 def query():
     db_conn = sqlite3.connect("task.db")
     c = db_conn.cursor()
-    c.execute("SELECT *, oid FROM task_user")
+    c.execute("SELECT rowid, * FROM task_user")
     records = c.fetchall()
     del_label = Label(window, text="Enter ID:", padx=5)
     del_label.grid(row=4, column=0)
